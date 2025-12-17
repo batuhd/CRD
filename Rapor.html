@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapor Aracı</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+    <link rel="stylesheet" href="rapor.css">
+</head>
+
+<body>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                <div class="text-center mb-5">
+                    <h2 class="header-title">KISMİ ZAMANLI ÇALIŞMA RAPORU</h2>
+                    <p class="text-muted">Excel Dosyası Oluşturma/Düzenleme</p>
+                </div>
+
+                <div class="main-card p-4 mb-4">
+                    <div class="row g-3 align-items-end">
+                        <div class="col-md-5">
+                            <label class="form-label">Çalışma Dönemi</label>
+                            <div class="period-group">
+                                <div class="d-flex align-items-center gap-2">
+                                    <select id="startDay" class="form-select form-select-sm"
+                                        style="width: 60px;"></select>
+                                    <select id="startMonth" class="form-select form-select-sm"></select>
+                                    <span class="fw-bold text-muted">-</span>
+                                    <select id="endDay" class="form-select form-select-sm"
+                                        style="width: 60px;"></select>
+                                    <select id="endMonth" class="form-select form-select-sm"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Öğrenci Adı Soyadı</label>
+                            <input type="text" id="studentName" class="form-control" value=" ...">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label text-primary">📂 Excel Yükle</label>
+                            <input type="file" id="uploadExcel" class="form-control" accept=".xlsx, .xls, .csv">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="main-card p-4 mb-4" id="entryCard">
+                    <h5 class="fw-bold mb-3 text-dark">✍️ Kayıt Girişi</h5>
+                    <form id="entryForm" class="row g-3 align-items-end">
+                        <input type="hidden" id="editIndex" value="-1">
+
+                        <div class="col-md-4">
+                            <label class="form-label">Tarih (Gün / Ay / Yıl)</label>
+                            <div class="date-select-group">
+                                <select id="entryDay" class="form-select" style="flex: 1;"></select>
+                                <select id="entryMonth" class="form-select" style="flex: 2;"></select>
+                                <select id="entryYear" class="form-select" style="flex: 1.5;"></select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Başlangıç (Örn: 09:00)</label>
+                            <input type="text" id="timeStart" class="form-control" placeholder="09:00" maxlength="5"
+                                inputmode="numeric" required>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">Bitiş (Örn: 17:00)</label>
+                            <input type="text" id="timeEnd" class="form-control" placeholder="17:00" maxlength="5"
+                                inputmode="numeric" required>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Yapılan İşin Tanımı</label>
+                            <input type="text" id="descIn" class="form-control" placeholder="...'de ... işi" required>
+                        </div>
+
+                        <div class="col-12 mt-4 d-flex gap-2">
+                            <button type="button" class="btn btn-secondary btn-action" id="cancelBtn"
+                                onclick="resetForm()" style="display:none;">İptal</button>
+                            <button type="submit" class="btn btn-dark btn-action w-100" id="addBtn">Listeye
+                                Ekle</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div class="d-flex align-items-center gap-3">
+                        <h5 class="fw-bold m-0">📄 Excel Önizleme</h5>
+                        <button onclick="sortDataByDate()" class="btn btn-sm btn-outline-primary fw-bold">📅 Akıllı
+                            Sırala (Gün/Ay/Yıl)</button>
+                    </div>
+                    <div class="total-badge">
+                        Toplam: <span id="totalDisplay" class="fw-bold text-warning">0</span> Saat
+                    </div>
+                </div>
+
+                <div class="preview-container mb-4">
+                    <table class="excel-table" id="mainTable">
+                        <thead>
+                            <tr>
+                                <th class="col-a">Tarih</th>
+                                <th class="col-b">Saat</th>
+                                <th class="col-c">İmza</th>
+                                <th class="col-d">İş Tanımı</th>
+                                <th style="width:140px; background:#fff; border:none;">İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+                <button onclick="downloadExactExcel()" class="btn btn-primary btn-action w-100 py-3 fs-5 shadow-lg">
+                    📥 Raporu İndir
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="rapor.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+        body {
+            background-color: #f3f6f9;
+            font-family: 'Inter', sans-serif;
+            color: #344767;
+        }
+
+        .main-card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            background: #fff;
+        }
+
+        .header-title {
+            font-weight: 800;
+            color: #1a1f36;
+            letter-spacing: -0.5px;
+        }
+
+        .form-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #697a8d;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 8px;
+            border: 1px solid #e0e6ed;
+            padding: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+            border-color: #4361ee;
+        }
+
+        /* Tablo Stilleri */
+        .preview-container {
+            border: 2px solid #e0e6ed;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .excel-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Calibri', sans-serif;
+            font-size: 14px;
+        }
+
+        .excel-table th {
+            background: #f8f9fa;
+            border: 1px solid #c7c7c7;
+            padding: 8px;
+            text-align: center;
+            color: #444;
+        }
+
+        .excel-table td {
+            border: 1px solid #c7c7c7;
+            padding: 8px;
+            vertical-align: middle;
+        }
+
+        .excel-table .col-a {
+            width: 28.5%;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .excel-table .col-b {
+            width: 23.4%;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .excel-table .col-c {
+            width: 15.0%;
+            text-align: center;
+        }
+
+        .excel-table .col-d {
+            width: 33.1%;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .btn-action {
+            border-radius: 10px;
+            font-weight: 700;
+            padding: 12px 24px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #4361ee;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #3a53d0;
+            transform: translateY(-2px);
+        }
+
+        .btn-move {
+            padding: 4px 10px;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .total-badge {
+            background: #212529;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+        }
+
+        .date-select-group {
+            display: flex;
+            gap: 5px;
+        }
+
+        .period-group {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #e0e6ed;
+        }
